@@ -32,28 +32,3 @@ homelab/
 ├── configs/               # App-specific configs
 └── docs/                  # Documentation
 ```
-```
-
-### 2. .gitignore
-```
-# Secrets
-.env
-
-# Data directories
-configs/*/data/
-*.db
-*.db-shm
-*.db-wal
-
-# Logs
-*.log
-logs/
-
-# Temporary files
-*.tmp
-*.swp
-*~
-
-# OS files
-.DS_Store
-Thumbs.db

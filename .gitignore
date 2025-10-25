@@ -1,0 +1,12 @@
+# Secrets
+.env
+
+# Data directories
+configs/*/data/
+*.db
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
