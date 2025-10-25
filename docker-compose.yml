@@ -1,0 +1,24 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+      - 8096:8096/tcp  # HTTP
+      - 8920:8920/tcp  # HTTPS (optional)
+      - 7359:7359/udp  # client discovery
+      - 1900:1900/udp  # DLNA
+    volumes:
+      - ${CONFIGS_DIR}/jellyfin:/config
+      - ${MEDIA_DIR}:/media:ro
+    devices:
+      - /dev/dri:/dev/dri  # Hardware acceleration
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    # Uncomment after we verify render group ID
+    # group_add:
+    #   - "RENDER_GROUP_ID"
+
+# Add more services below as we build out the stack
