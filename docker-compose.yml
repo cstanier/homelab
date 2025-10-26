@@ -53,7 +53,7 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=openvpn # might experiment with wireguard later
-      - OPENVPN_USERNAME=${OPENVPN_USERNAME}+pmp
+      - OPENVPN_USER=${OPENVPN_USER}+pmp
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - VPN_PORT_FORWARDING=on
       - TZ=${TZ}
