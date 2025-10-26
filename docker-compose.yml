@@ -17,7 +17,6 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-    # Uncomment after we verify render group ID
     group_add:
       - 44
 
@@ -25,10 +24,7 @@ services:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     restart: unless-stopped
-    ports:
-      - 8080:8080     # Web UI
-      - 6881:6881     # Torrenting (data transfer)
-      - 6881:6881/udp # Torrenting (peer discovery)
+    network_mode: "service:gluetun" # Route through VPN
     volumes:
       - ${CONFIGS_DIR}/qbittorrent:/config
       - ${DOWNLOADS_DIR}:/downloads
@@ -36,3 +32,31 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - WEBUI_PORT=8080
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 8888:8888     # HTTP proxy
+      # OpenVPN ports for qbittorrent
+      - 8080:8080     # Web UI
+      - 6881:6881     # Torrenting (data transfer)
+      - 6881:6881/udp # Torrenting (peer discovery)
+    volumes:
+      - ${CONFIGS_DIR}/gluetun:/gluetun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=openvpn # might experiment with wireguard later
+      - OPENVPN_USERNAME=${OPENVPN_USERNAME}+pmp
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - VPN_PORT_FORWARDING=on
+      - TZ=${TZ}
+      - FIREWALL_OUTBOUND_SUBNETS=10.0.0.0/24
+    # Letting Gluetun choose the server automatically for now
+    # - SERVER_COUNTRIES=Netherlands
