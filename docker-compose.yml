@@ -10,7 +10,7 @@ services:
       - 1900:1900/udp  # DLNA
     volumes:
       - ${CONFIGS_DIR}/jellyfin:/config
-      - ${MEDIA_DIR}:/media:ro
+      - ${DATA_DIR}:/data:ro
     devices:
       - /dev/dri:/dev/dri  # Hardware acceleration
     environment:
@@ -27,7 +27,7 @@ services:
     network_mode: "service:gluetun" # Route through VPN
     volumes:
       - ${CONFIGS_DIR}/qbittorrent:/config
-      - ${DOWNLOADS_DIR}:/downloads
+      - ${DATA_DIR}/downloads:/downloads
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
