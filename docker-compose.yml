@@ -87,3 +87,17 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    ports:
+      - 8989:8989
+    volumes:
+      - ${CONFIGS_DIR}/sonarr:/config
+      - ${DATA_DIR}:/data
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
