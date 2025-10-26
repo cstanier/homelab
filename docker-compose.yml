@@ -4,8 +4,8 @@ services:
     container_name: jellyfin
     restart: unless-stopped
     ports:
-      - 8096:8096/tcp  # HTTP
-      - 8920:8920/tcp  # HTTPS (optional)
+      - 8096:8096      # HTTP
+      - 8920:8920      # HTTPS (optional)
       - 7359:7359/udp  # client discovery
       - 1900:1900/udp  # DLNA
     volumes:
@@ -21,4 +21,18 @@ services:
     group_add:
       - 44
 
-# Add more services below as we build out the stack
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    ports:
+      - 8080:8080     # Web UI
+      - 6881:6881     # Torrenting (data transfer)
+      - 6881:6881/udp # Torrenting (peer discovery)
+    volumes:
+      - ${CONFIGS_DIR}/qbittorrent:/config
+      - ${DOWNLOADS_DIR}:/downloads
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
