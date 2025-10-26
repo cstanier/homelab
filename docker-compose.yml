@@ -18,7 +18,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     # Uncomment after we verify render group ID
-    # group_add:
-    #   - "RENDER_GROUP_ID"
+    group_add:
+      - 44
 
 # Add more services below as we build out the stack
