@@ -11,7 +11,7 @@ Infrastructure as Code for my home media server and automation platform.
 ## Services
 
 - **Jellyfin**: Media server (port 8096)
-- **qBittorrent**: Download manager (planned)
+- **qBittorrent**: Download manager (port 8080)
 - **Sonarr/Radarr**: Media automation (planned)
 
 ## Quick Start

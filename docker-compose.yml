@@ -10,7 +10,7 @@ services:
       - 1900:1900/udp  # DLNA
     volumes:
       - ${CONFIGS_DIR}/jellyfin:/config
-      - ${DATA_DIR}:/data:ro
+      - ${DATA_DIR}/media:/data/media:ro
     devices:
       - /dev/dri:/dev/dri  # Hardware acceleration
     environment:
@@ -27,7 +27,7 @@ services:
     network_mode: "service:gluetun" # Route through VPN
     volumes:
       - ${CONFIGS_DIR}/qbittorrent:/config
-      - ${DATA_DIR}/downloads:/downloads
+      - ${DATA_DIR}/torrents:/data/torrents
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -60,3 +60,17 @@ services:
       - FIREWALL_OUTBOUND_SUBNETS=10.0.0.0/24
     # Letting Gluetun choose the server automatically for now
     # - SERVER_COUNTRIES=Netherlands
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    ports:
+      - 7878:7878
+    volumes:
+      - ${CONFIGS_DIR}/radarr:/config
+      - ${DATA_DIR}:/data
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
