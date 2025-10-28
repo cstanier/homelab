@@ -127,3 +127,27 @@ services:
       - LOG_FILE=false
     volumes:
       - ${CONFIGS_DIR}/duckdns:/config
+
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SERVERURL=${DUCKDNS_SUBDOMAIN}.duckdns.org
+      - SERVERPORT=51820
+      - PEERS=laptop,phone  # Name your devices (add more later)
+      - PEERDNS=auto
+      - INTERNAL_SUBNET=10.13.13.0
+    volumes:
+      - ${CONFIGS_DIR}/wireguard:/config
+      - /lib/modules:/lib/modules:ro
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped

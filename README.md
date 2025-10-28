@@ -15,6 +15,7 @@ Infrastructure as Code for my home media server and automation platform.
 - **Sonarr/Radarr**: Media automation (ports 8989 and 7878)
 - **jellyseer**: Media exploring and selection (port 5055)
 - **duckdns**: Stable domain name
+- **wireguard**: Secure tunnel for external access
 
 ## Quick Start
 ```bash
