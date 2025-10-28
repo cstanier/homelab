@@ -122,7 +122,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - SUBDOMAIN=${DUCKDNS_SUBDOMAIN}
+      - SUBDOMAINS=${DUCKDNS_SUBDOMAIN}
       - TOKEN=${DUCKDNS_TOKEN}
       - LOG_FILE=false
     volumes:
