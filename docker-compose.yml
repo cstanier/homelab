@@ -141,7 +141,7 @@ services:
       - SERVERURL=${DUCKDNS_SUBDOMAIN}.duckdns.org
       - SERVERPORT=51820
       - PEERS=laptop,phone  # Name your devices (add more later)
-      - PEERDNS=auto
+      - PEERDNS=1.1.1.1
       - INTERNAL_SUBNET=10.13.13.0
     volumes:
       - ${CONFIGS_DIR}/wireguard:/config
