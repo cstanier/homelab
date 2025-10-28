@@ -12,7 +12,8 @@ Infrastructure as Code for my home media server and automation platform.
 
 - **Jellyfin**: Media server (port 8096)
 - **qBittorrent**: Download manager (port 8080)
-- **Sonarr/Radarr**: Media automation (planned)
+- **Sonarr/Radarr**: Media automation (ports 8989 and 7878)
+- **jellyseer**: Media exploring and selection (port 5055)
 
 ## Quick Start
 ```bash

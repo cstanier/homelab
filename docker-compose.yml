@@ -101,3 +101,15 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    ports:
+      - 5055:5055
+    volumes:
+      - ${CONFIGS_DIR}/jellyseerr:/app/config
+    environment:
+      - LOG_LEVEL=info
+      - TZ=${TZ}
